@@ -1,0 +1,37 @@
+{% extends "polls/index.html" %}
+    {% block title %} PCA {% endblock %}
+
+    {% block content %}
+
+         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'polls:pca' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="data_to_pca" />
+        <label for="data_to_pca">Analizuj plik</label><br>
+        <input type="submit" value="Analyze"/>
+    </form>
+     {% if not X %}
+        {% for x in X %}
+            {% for a in x %}
+                {{ a }}<br/>
+            {% endfor %}
+            <!--{{ x }}
+            <br/>-->
+        {% endfor %}
+     {% endif %}
+        <br/>
+        <p>Po PCA:</p>
+        <br/>
+     {% if not rX %}
+        {% for x in rX %}
+            {% for a in x %}
+                {{ a }}<br/>
+            {% endfor %}
+            <!--{{ x }}
+            <br/>-->
+        {% endfor %}
+     {% endif %}
+        <!--{{ original_data }}
+        {{ reduction_pca }}-->
+    {% endblock %}
